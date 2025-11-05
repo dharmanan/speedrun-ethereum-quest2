@@ -3,6 +3,5 @@
   "outputDirectory": "packages/nextjs/.next",
   "installCommand": "yarn install",
   "framework": "nextjs",
-  "rootDirectory": "packages/nextjs",
   "regions": ["iad1"]
 }
