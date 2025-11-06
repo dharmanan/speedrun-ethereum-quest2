@@ -17,10 +17,11 @@ const scaffoldConfig = {
   // The networks on which your DApp is live
   // For local development, use chains.hardhat
   // For production (Sepolia), use chains.sepolia
-  targetNetworks: [chains.hardhat, chains.sepolia],
+  targetNetworks: [chains.sepolia],
   // The interval at which your front-end polls the RPC servers for new data (it has no effect if you only target the local network (default is 4000))
   pollingInterval: 30000,
   // This is ours Alchemy's default API key.
+  // You can get your own at https://dashboard.alchemyapi.io
   // You can get your own at https://dashboard.alchemyapi.io
   // It's recommended to store it in an env variable:
   // .env.local for local testing, and in the Vercel/system env config for live apps.

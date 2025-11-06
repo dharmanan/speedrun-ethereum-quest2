@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding");
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/staker-ui",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 const isIpfs = process.env.NEXT_PUBLIC_IPFS_BUILD === "true";

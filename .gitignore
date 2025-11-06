@@ -22,3 +22,7 @@ node_modules
 # cli
 dist
 .vercel
+
+# env files
+.env*
+!.env.example

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { ETHToPrice } from "./EthToPrice";
 import humanizeDuration from "humanize-duration";
 import { formatEther, parseEther } from "viem";
@@ -11,6 +12,7 @@ import { useWatchBalance } from "~~/hooks/scaffold-eth/useWatchBalance";
 
 export const StakeContractInteraction = ({ address }: { address?: string }) => {
   const { address: connectedAddress } = useAccount();
+  const [stakeAmount, setStakeAmount] = useState("0.5");
   const { data: StakerContract } = useDeployedContractInfo({ contractName: "Staker" });
   const { data: ExampleExternalContact } = useDeployedContractInfo({ contractName: "ExampleExternalContract" });
   const { data: stakerContractBalance } = useWatchBalance({
@@ -120,18 +122,31 @@ export const StakeContractInteraction = ({ address }: { address?: string }) => {
               Withdraw
             </button>
           </div>
-          <button
-            className="btn btn-primary uppercase"
-            onClick={async () => {
-              try {
-                await writeContractAsync({ functionName: "stake", value: parseEther("0.5") });
-              } catch (err) {
-                console.error("Error calling stake function", err);
-              }
-            }}
-          >
-            🔏 Stake 0.5 ether!
-          </button>
+          <div className="flex flex-col space-y-3">
+            <input
+              type="number"
+              step="0.01"
+              min="0.01"
+              placeholder="Amount in ETH"
+              className="input input-bordered input-primary w-full"
+              onChange={e => setStakeAmount(e.target.value)}
+            />
+            <button
+              className="btn btn-primary uppercase"
+              onClick={async () => {
+                try {
+                  const amount = parseFloat(stakeAmount);
+                  if (amount > 0) {
+                    await writeContractAsync({ functionName: "stake", value: parseEther(stakeAmount) });
+                  }
+                } catch (err) {
+                  console.error("Error calling stake function", err);
+                }
+              }}
+            >
+              🔏 Stake {stakeAmount || "0"} ether!
+            </button>
+          </div>
         </div>
       </div>
     </div>
